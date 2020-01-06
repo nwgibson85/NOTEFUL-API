@@ -2,6 +2,6 @@ module.exports = {
     PORT: process.env.PORT || 8000,
     NODE_ENV: process.env.NODE_ENV || 'development',
     API_KEY: process.env.API_KEY,
-    DB_URL: process.env.DB_URL || 'postgresql://dunder_mifflin@localhost/noteful_folders',
-    TEST_DB_URL: process.env.TEST_DB_URL
+    DATABASE_URL: process.env.DATABASE_URL || 'postgresql://dunder_mifflin@localhost/noteful_folders',
+    TEST_DATABASE_URL: process.env.TEST_DATABASE_URL
   }
