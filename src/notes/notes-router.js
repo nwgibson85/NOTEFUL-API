@@ -6,13 +6,13 @@ const NotesService = require('./notes-service');
 const notesRouter = express.Router();
 const jsonParser = express.json();
 
-// const sterilizeNote = note => ({
-//   id: note.id,
-//   name: xss(note.name),
-//   modified: (note.modified),
-//   folder_id: note.folder_id,
-//   content: xss(note.content),
-// });
+const sterilizeNote = note => ({
+  id: note.id,
+  name: xss(note.name),
+  modified: (note.modified),
+  folder_id: note.folder_id,
+  content: xss(note.content),
+});
 
 notesRouter
     .route('/')
@@ -22,8 +22,7 @@ notesRouter
           .then(notes => {
               res
               .status(200)
-              // .json(notes.map(sterilizeNote));
-              .json(notes);
+              .json(notes.map(sterilizeNote));
           })
           .catch(next);
     })
@@ -45,8 +44,7 @@ notesRouter
             res
               .status(201)
               .location(path.posix.join(req.originalUrl, `/${note.id}`))
-              // .json(sterilizeNote(newNote));
-              .json(newNote);
+              .json(sterilizeNote(newNote));
           })
           .catch(next);
     });
@@ -67,8 +65,7 @@ notesRouter
       .catch(next);
   })
   .get((req, res, next) => {
-    // res.json(sterilizeNote(res.note));
-    res.json(res.note);
+    res.json(sterilizeNote(res.note));
   })
   .delete((req, res, next) => {
     NotesService.deleteNote(req.app.get('db'), req.params.note_id)
@@ -89,12 +86,6 @@ notesRouter
             }
         });
     }
-
-    // const modified = new Date();
-    // const newNoteFields = {
-    //   ...noteToUpdate, 
-    //   modified
-    // }
     
     NoteService.updateNote(
       req.app.get('db'),

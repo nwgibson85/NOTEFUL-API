@@ -9,7 +9,6 @@ const NotesService = {
         .first();
     },
     insertNote(knex, newNote) {
-      console.log(newNote)
       return knex
         .insert(newNote)
         .into('noteful_notes')
