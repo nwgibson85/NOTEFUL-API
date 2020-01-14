@@ -5,7 +5,7 @@ function makeMaliciousNotesArray() {
             name: 'dogs', 
             modified: '2029-01-22T16:28:32.615Z',
             content: '4 legs, loyal, good boi', 
-            folderId: '1' 
+            folder_id: '1' 
             
         },
         {
@@ -13,21 +13,21 @@ function makeMaliciousNotesArray() {
             name: 'cats', 
             modified: '2029-01-22T16:28:32.615Z',
             content: '4 legs, not loyal, athhole', 
-            folderId: '1'
+            folder_id: '1'
         },
         {
             id: 3,
             name: 'birds', 
             modified: '2029-01-22T16:28:32.615Z',
             content: '2 legs, loud, fly boi', 
-            folderId: '2'
+            folder_id: '2'
         },
         {
             id: 4,
             name: 'armadillo', 
             modified: '2029-01-22T16:28:32.615Z',
             content: '4 legs, defensive, armored boi', 
-            folderId: '3'
+            folder_id: '3'
         },
     ]
 }
@@ -38,13 +38,13 @@ function makeMaliciousNote() {
       name: 'Naughty naughty very naughty <script>alert("xss");</script>',
       modified: '2029-01-22T16:28:32.615Z',
       content: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
-      folderId: 1
+      folder_id: 1
     }
     const expectedNote = {
       ...maliciousNote,
       name: 'Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;',
       content: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
-      folderId: 1
+      folder_id: 1
     }
     return {
       maliciousNote,

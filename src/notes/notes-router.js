@@ -10,7 +10,7 @@ const jsonParser = express.json();
 //   id: note.id,
 //   name: xss(note.name),
 //   modified: (note.modified),
-//   folderId: note.folderId,
+//   folder_id: note.folder_id,
 //   content: xss(note.content),
 // });
 
@@ -28,9 +28,9 @@ notesRouter
           .catch(next);
     })
     .post(jsonParser, (req, res, next) => {
-      const { name, modified, folderId, content } = req.body;
-      const requiredFields = {name, folderId};
-      const newNote = {name, modified, folderId, content};
+      const { name, modified, folder_id, content } = req.body;
+      const requiredFields = {name, folder_id};
+      const newNote = {name, modified, folder_id, content};
 
       for (const [key, value] of Object.entries(requiredFields)) {
         if (value === null) {
@@ -71,21 +71,21 @@ notesRouter
     res.json(res.note);
   })
   .delete((req, res, next) => {
-    NotesService.deleteNote(req.app.get('db'), req.params.noteId)
+    NotesService.deleteNote(req.app.get('db'), req.params.note_id)
       .then(() => {
         res.status(204).end();
       })
       .catch(next);
   })
   .patch(jsonParser, (req, res) => {
-    const {name, modified, folderId, content} = req.body;
-    const noteToUpdate = {name, modified, folderId, content};
+    const {name, modified, folder_id, content} = req.body;
+    const noteToUpdate = {name, modified, folder_id, content};
   
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length;
     if (numberOfValues === 0) {
         return res.status(400).json({
             error: {
-                message: `Request body must contain both name and folderId`
+                message: `Request body must contain both name and folder_id`
             }
         });
     }
@@ -98,7 +98,7 @@ notesRouter
     
     NoteService.updateNote(
       req.app.get('db'),
-      req.params.note.id,
+      req.params.note_id,
       newNoteFields
     )
     .then(() => {
