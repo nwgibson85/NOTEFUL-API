@@ -1,10 +1,10 @@
 const knex = require('knex');
 const app = require('./app');
-const { PORT, HEROKU_POSTGRESQL_PURPLE_URL } = require('./config');
+const { PORT, DATABASE_URL } = require('./config');
 
 const db = knex({
     client: 'pg',
-    connection: HEROKU_POSTGRESQL_PURPLE_URL,
+    connection: DATABASE_URL,
 });
 
 app.set('db', db);
