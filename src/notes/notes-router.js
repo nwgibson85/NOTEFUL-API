@@ -44,7 +44,7 @@ notesRouter
             res
               .status(201)
               .location(path.posix.join(req.originalUrl, `/${note.id}`))
-              .json(sterilizeNote(newNote));
+              .json(sterilizeNote(note));
           })
           .catch(next);
     });
